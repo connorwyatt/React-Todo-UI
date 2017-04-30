@@ -39,7 +39,13 @@ module.exports = {
   },
   output: {path: path.resolve(__dirname, '..', 'dist'), filename: '[name].[chunkhash].js'},
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8081',
+        pathRewrite: {'^/api': ''}
+      }
+    }
   },
   module: {
     rules: [
