@@ -1,7 +1,30 @@
 const path = require('path'),
+  fs = require('fs'),
   webpack = require('webpack'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
-  CopyWebpackPlugin = require('copy-webpack-plugin');
+  CopyWebpackPlugin = require('copy-webpack-plugin'),
+  assetsLocation = 'src/assets',
+  assetsExists = fs.existsSync(path.resolve(__dirname, '..', assetsLocation));
+
+const plugins = [
+  new webpack.optimize.CommonsChunkPlugin({
+    names: ['app', 'libs']
+  }),
+  new HtmlWebpackPlugin({
+    template: './src/index.html',
+    minify: {collapseWhitespace: true},
+    inject: true
+  })
+];
+
+if (assetsExists) {
+  plugins.push(
+    new CopyWebpackPlugin([{
+      from: assetsLocation,
+      to: 'assets'
+    }])
+  );
+}
 
 module.exports = {
   entry: {
@@ -52,20 +75,7 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['app', 'libs']
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      minify: {collapseWhitespace: true},
-      inject: true
-    }),
-    new CopyWebpackPlugin([{
-      from: 'src/assets',
-      to: 'assets'
-    }])
-  ],
+  plugins: plugins,
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js']
   }
