@@ -32,7 +32,9 @@ module.exports = {
     libs: [
       'core-js',
       'react',
-      'react-dom'
+      'react-dom',
+      'react-redux',
+      'redux'
     ]
   },
   output: {path: path.resolve(__dirname, '..', 'dist'), filename: '[name].[chunkhash].js'},
