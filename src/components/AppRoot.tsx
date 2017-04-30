@@ -1,6 +1,7 @@
 import React, {Component, SyntheticEvent} from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
+import {IAction} from '../data/actions/IAction';
 import {addTodo, removeTodo, toggleTodo} from '../data/actions/todos';
 import {IAppState} from '../data/reducers';
 import {ITodo} from '../data/reducers/todos';
@@ -71,7 +72,7 @@ const mapStateToProps = (state: IAppState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+const mapDispatchToProps = (dispatch: Dispatch<IAction<any>>) => {
   return {
     addTodo: (text: string): void => {
       dispatch(addTodo(text));
