@@ -14,12 +14,15 @@
   "dependencies": {
     "core-js": "2.4.1",
     "react": "15.4.2",
-    "react-dom": "15.4.2"
+    "react-dom": "15.4.2",
+    "react-redux": "5.0.4",
+    "redux": "3.6.0"
   },
   "devDependencies": {
     "@types/core-js": "0.9.41",
     "@types/react": "15.0.21",
     "@types/react-dom": "0.14.23",
+    "@types/react-redux": "4.4.40",
     "babel": "6.23.0",
     "babel-core": "6.24.0",
     "babel-loader": "6.4.1",
