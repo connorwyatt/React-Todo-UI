@@ -30,11 +30,13 @@ module.exports = {
   entry: {
     app: './src/bootstrap.tsx',
     libs: [
-      'core-js',
+      'axios',
+      'babel-polyfill',
       'react',
       'react-dom',
       'react-redux',
-      'redux'
+      'redux',
+      'redux-saga'
     ]
   },
   output: {path: path.resolve(__dirname, '..', 'dist'), filename: '[name].[chunkhash].js'},

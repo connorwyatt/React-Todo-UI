@@ -1,6 +1,12 @@
 import {Reducer} from 'redux';
 import {IAction} from '../actions/IAction';
-import {IAddTodoPayload, IRemoveTodoPayload, IToggleTodoPayload, TodosActionTypes} from '../actions/todos';
+import {
+  IAddTodoPayload,
+  IGetTodosServerSuccessPayload,
+  IRemoveTodoPayload,
+  IToggleTodoPayload,
+  TodosActionTypes
+} from '../actions/todos';
 
 export interface ITodo {
   id: number;
@@ -19,15 +25,18 @@ export const todosReducer: Reducer<ITodosState> =
     return (reducerMap.get(action.type) as Reducer<ITodosState>)(state, action);
   };
 
-const addTodo = (state: ITodosState, action: IAction<IAddTodoPayload>): ITodosState => {
-  return [...state, action.payload.todo];
-};
+const addTodo = (state: ITodosState, action: IAction<IAddTodoPayload>): ITodosState => (
+  [...state, action.payload.todo]
+);
 
-const removeTodo = (state: ITodosState, action: IAction<IRemoveTodoPayload>): ITodosState => {
-  return state.filter(todo => {
+const removeTodo = (state: ITodosState, action: IAction<IRemoveTodoPayload>): ITodosState => (
+  state.filter(todo => {
     return todo.id !== action.payload.id;
-  });
-};
+  }));
+
+const getTodosServerSuccess = (state: ITodosState, action: IAction<IGetTodosServerSuccessPayload>): ITodosState => (
+  [...action.payload.todos]
+);
 
 const toggleTodo = (state: ITodosState, action: IAction<IToggleTodoPayload>): ITodosState => {
   return state.map(todo => {
@@ -42,5 +51,6 @@ const toggleTodo = (state: ITodosState, action: IAction<IToggleTodoPayload>): IT
 const reducerMap = new Map<string, Reducer<ITodosState>>([
   [TodosActionTypes.ADD_TODO, addTodo],
   [TodosActionTypes.REMOVE_TODO, removeTodo],
+  [TodosActionTypes.GET_TODOS_SERVER_SUCCESS, getTodosServerSuccess],
   [TodosActionTypes.TOGGLE_TODO, toggleTodo]
 ]);
